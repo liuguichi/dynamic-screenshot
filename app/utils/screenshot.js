@@ -21,6 +21,7 @@ async function screenshot(params) {
     let browser = null;
     if (isProd) {
         browser = await puppeteer.launch();
+        log(`[Prod browser inited successfully]`);
     } else {
         browser = await puppeteer.launch({
             executablePath: '/Users/liuguichi/dw_project/node-server/dynamic-image-service/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
@@ -39,12 +40,13 @@ async function screenshot(params) {
     });
     return new Promise((resolve) => {
         setTimeout(async () => {
+            log(`[screenshot start]`);
             await page.screenshot({ 
                 path: defaultPath,
                 quality: 100,
                 fullPage: true,
               });
-          
+            log(`[screenshot end]`);
             await browser.close();
             if (params.compress) {
               await compress(defaultPath);
