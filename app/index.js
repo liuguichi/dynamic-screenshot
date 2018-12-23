@@ -22,6 +22,7 @@ app.use(async ctx => {
         ctx.body = '屏幕截图抓取成功';
       })
       .catch((e) => {
+        log(`[Exception:]${JSON.stringify(e)}`);
         ctx.body = '系统暂时不可用，请稍后再试';
       })
   } else if (ctx.request.path === '/job' && ctx.method.toLowerCase() === 'post') {
