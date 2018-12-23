@@ -22,6 +22,7 @@ async function screenshot(params) {
     if (isProd) {
         log(`[ENV:] ${process.env.NODE_ENV}`);
         browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
             executablePath: '/usr/local/screenshot/dynamic-screenshot/node_modules/puppeteer/.local-chromium/linux-609904/chrome-linux/',
         });
         log(`[Prod browser inited successfully]`);
