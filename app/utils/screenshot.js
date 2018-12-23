@@ -20,6 +20,7 @@ async function screenshot(params) {
 
     let browser = null;
     if (isProd) {
+        log(`[ENV:] ${process.env.NODE_ENV}`);
         browser = await puppeteer.launch();
         log(`[Prod browser inited successfully]`);
     } else {
