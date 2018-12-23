@@ -11,10 +11,10 @@ app.use(bodyBody());
 // response
 app.use(async ctx => {
   log(`[request info: ${JSON.stringify(ctx.request)}]`);
-  if (!dateUtil.isTradingDay()) {
-    ctx.body = '今天不是交易日';
-    return;
-  }
+  // if (!dateUtil.isTradingDay()) {
+  //   ctx.body = '今天不是交易日';
+  //   return;
+  // }
   if (ctx.request.path === '/screenshot' && ctx.method.toLowerCase() === 'post') {
     log(`[request body : ${JSON.stringify(ctx.request.body)}]`);
     await screenshot(ctx.request.body)
