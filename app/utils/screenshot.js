@@ -1,8 +1,10 @@
 const puppeteer = require('puppeteer');
+const devices = require('puppeteer/DeviceDescriptors');
 const fs = require('fs');
 const dateUtil = require('./date');
 const compress = require('./compress');
 const log = console.log;
+const iPhone6 = devices['iPhone 5'];
 
 const isProd = process.env.NODE_ENV === 'prod';
 async function screenshot(params) {
@@ -21,10 +23,7 @@ async function screenshot(params) {
     let browser = null;
     if (isProd) {
         log(`[ENV:] ${process.env.NODE_ENV}`);
-        browser = await puppeteer.launch({
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            executablePath: '/usr/local/screenshot/dynamic-screenshot/node_modules/puppeteer/.local-chromium/linux-609904/chrome-linux/',
-        });
+        browser = await puppeteer.launch();
         log(`[Prod browser inited successfully]`);
     } else {
         browser = await puppeteer.launch({
@@ -33,15 +32,12 @@ async function screenshot(params) {
     }
     const page = await browser.newPage();
     await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1');
-    await page.setViewport({
-        width: 375,
-        height: 1000,
-        isMobile: true,
-    })
+    await page.emulate(iPhone6);
     await page.goto(params.address, {
         waitUntil: ['networkidle0'],
         timeout: 12000,
     });
+    await page.waitFor(2000);
     return new Promise((resolve) => {
         setTimeout(async () => {
             log(`[screenshot start]`);
