@@ -22,6 +22,7 @@ async function screenshot(params) {
     if (isProd) {
         log(`[ENV:] ${process.env.NODE_ENV}`);
         browser = await puppeteer.launch({
+            headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
         });
         log(`[Prod browser inited successfully]`);
