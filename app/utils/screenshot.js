@@ -32,13 +32,18 @@ async function screenshot(params) {
         });
     }
     const page = await browser.newPage();
+    log(`[page inited successfully]`);
     await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1');
+    log(`[page setUserAgent successfully]`);
     await page.emulate(iPhone6);
+    log(`[page emulate iPhone6 successfully]`);
     await page.goto(params.address, {
         waitUntil: ['networkidle0'],
         timeout: 12000,
     });
+    log(`[page goto ${params.address} successfully]`);
     await page.waitFor(2000);
+    log(`[page waitFor successfully]`);
     await page.evaluate(async () => {
         await new Promise((resolve) => {
             var totalHeight = 0;
