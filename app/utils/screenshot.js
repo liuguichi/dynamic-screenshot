@@ -28,14 +28,17 @@ async function screenshot(params) {
     await page.evaluate(function() {
         window.document.body.scrollTop = window.document.body.scrollHeight;
     });
-    setTimeout(async () => {
-        await page.render(defaultPath, { quality: '100' });
-        log(`page render successfully`);
-        await instance.exit();
-        if (params.compress) {
-            await compress(defaultPath);
-        }
-    }, 5000);
+    return new Promise((resolve) => {
+        setTimeout(async () => {
+            await page.render(defaultPath, { quality: '100' });
+            log(`page render successfully`);
+            await instance.exit();
+            if (params.compress) {
+                await compress(defaultPath);
+            }
+            resolve();
+        }, 5000);
+    });
 }
 
 module.exports = screenshot;
