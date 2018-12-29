@@ -52,6 +52,6 @@ router.post('/screenshot', async (ctx) => {
 
 app.use(router.routes());
 
-app.listen(3333, () => {
-    log('[server started and listen on port 3333]');
+app.listen(3334, () => {
+    log('[server started and listen on port 3334]');
 });
