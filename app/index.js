@@ -2,9 +2,11 @@ const Koa = require('koa');
 const bodyBody = require('koa-body');
 const router = require('koa-router')();
 const screenshot = require('./utils/screenshot');
+const serve = require('koa-static');
 const app = new Koa();
 const log = console.log;
 
+app.use(serve('/usr/local/var/www/images/'));
 app.use(bodyBody());
 router.post('/screenshot', async (ctx) => {
   log(`[request body : ${JSON.stringify(ctx.request.body)}]`);
